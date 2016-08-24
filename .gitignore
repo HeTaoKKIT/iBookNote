@@ -1,0 +1,5 @@
+#ignore below files
+.DS_Store
+Thumbs.db
+#ignore below filder
+BigFileLib/

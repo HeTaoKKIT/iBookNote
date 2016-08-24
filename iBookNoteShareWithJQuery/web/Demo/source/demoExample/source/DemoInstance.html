@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Editor for DemoInstance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta charset="utf-8" />
+
+  <link rel="stylesheet" href="../../../../../lib/css/content.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="../../../../../lib/js/jquery.js" > </script>
+  <script type="text/javascript" src="../../../../../lib/js/content.js" charset="utf-8"> </script>
+  <script type="text/javascript" src="../../../../../lib/highlight/highlight.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    $("#editControls input").click(function(e) {
+    switch($(this).data("role")) {
+      case "p":
+      case "li":
+      case "ul":
+      case "div":
+      document.execCommand("formatBlock", false, "<" + $(this).data("role") + ">");
+      break;
+      default:
+      document.execCommand($(this).data("role"), false, null);
+      break;
+    }
+    })
+  })
+  </script>
+  <style>
+  .content {
+    margin: 8px;
+  }
+
+  #editor {
+    resize:vertical;
+    overflow:auto;
+    border:1px solid silver;
+    border-radius:5px;
+    min-height:100px;
+    box-shadow: inset 0 0 10px silver;
+    padding:1em;
+    background-color:beige;
+  }
+  </style>
+</head>
+
+<body>
+<div class="navigationBar">
+  <a href="../../../../../index.html">iBookNote </a>|<a href="./../../../indexDemo.html"> Demo</a>
+</div>
+<ul><div class="headers">页面标题</div>
+  <li>
+    <p>第一级标题</p>
+    <button class="button">查看或隐藏关键源代码</button>
+  </li>
+</ul>
+<div class="content">
+  <div id="editControls">
+  <div>
+    <input type="button" value="p" data-role='p' href="#" />
+    <input type="button" value="li" data-role="li" href="#" />
+    <input type="button" value="ul" data-role="ul" href="#" />
+    <input type="button" value="div" data-role="div" href="#" />
+    <input type="checkbox" onchange="setEditorAreaMode(this.checked,'editor');"><label>Show HTML, DemoInstance.html</label></input>
+  </div>
+  </div>
+  <div id="editor" contenteditable="true">
+
+<ul><div class="headers">页面标题</div>
+  <p>第一级段落文字<span class="important">高亮重要信息</span></p>
+  <button class="button">查看或隐藏关键源代码</button>
+  <div class="hidden">
+<pre><code class="html">&lt;div&gt;
+  &lt;p&gt;Hello&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<pre><code class="javascript">var appModule = "demo";
+</code></pre>
+  </div>
+
+  <div>
+    <p>Hello</p>
+  </div>
+
+  <hr>
+
+  <!-- Demo -->
+
+  <hr>
+
+</ul>
+<pre><code class="javasript">// 参考资料
+<a href="http://www.****.com">参考资料网址</a>
+</code></pre>
+<pre><code class="javascript">// 更详细的信息请查看 BigFileLib
+<a href="../../../../BigFileLib/MacSoft">BigFileLib --> MacSoft</a>
+</code></pre>
+
+  </div>
+</div>
+
+</body>
+<script type="text/javascript">
+  function setEditorAreaMode(ToBeSource, editorId) {
+    var editorArea,
+        editorAreaContent,
+        editorInnerHTML = "";
+    editorArea = document.getElementById(editorId);
+    editorInnerHTML = editorArea.innerHTML
+                      .toString().replace(/<br>/g, "")
+                      .replace(/<p><\/p>/g, "")
+                      .replace(/<li><\/li>/g, "")
+                      .replace(/<div><\/div>/g, "")
+                      .replace(/<\/p><p>/g, "<\/p>\n<p>")
+                      .replace(/<\/li><li>/g, "<\/li>\n<li>")
+                      .replace(/<\/div><div>/g, "<\/div>\n<div>");
+    if (ToBeSource) {
+      editorAreaContent = document.createTextNode(editorInnerHTML);
+      editorArea.innerHTML = "";
+      var PreElement = document.createElement("pre");
+      editorArea.contentEditable = false;
+      PreElement.contentEditable = true;
+      PreElement.appendChild(editorAreaContent);
+      editorArea.appendChild(PreElement);
+    } else {
+      if (document.all) {
+        editorArea.innerHTML = editorArea.innerText;
+      } else {
+        editorAreaContent = document.createRange();
+        editorAreaContent.selectNodeContents(editorArea.firstChild);
+        editorArea.innerHTML = editorAreaContent.toString();
+      }
+      editorArea.contentEditable = true;
+    }
+    editorArea.focus();
+  }
+  </script>
+</html>

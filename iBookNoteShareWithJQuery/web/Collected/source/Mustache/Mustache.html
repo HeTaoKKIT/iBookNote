@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Web模板引擎——Mustache</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta charset="utf-8" />
+
+  <link rel="stylesheet" href="../../../../lib/css/content.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="../../../../lib/js/jquery.js" > </script>
+  <script type="text/javascript" src="../../../../lib/js/content.js" charset="utf-8"> </script>
+  <script type="text/javascript" src="../../../../lib/highlight/highlight.js"></script>
+
+  <script type="text/javascript">
+
+  </script>
+</head>
+
+<body>
+<div class="navigationBar">
+  <a href="../../../../index.html">iBookNote </a>|<a href="./../../indexCollected.html"> Collected</a>
+</div>
+
+<ul><div class="headers">Web模板引擎——Mustache</div>
+  <li>
+    <p>Mustache简介</p>
+    <p>Mustache 是一个 logic-less （轻逻辑）模板解析引擎，它的优势在于可以应用在 Javascript、PHP、Python、Perl 等多种编程语言中。</p>
+    <p>Web 模板引擎是为了使用户界面与业务数据（内容）分离而产生的，它可以生成特定格式的文档，通常是标准的 HTML 文档。当然不同的开发语言有不同模板引擎，如 Javascript 下的 Hogan 、ASP 下的 aspTemplate、以及 PHP 下的 Smarty，这里主要介绍基于 Javascript 语言的模板引擎，目前流行有 Mustache、Hogan、doT.js、JsRender、Kendo UI Templates等，jsperf.com 上可以看到它们的性能对比。</p>
+  </li>
+  <li>
+    <p>Mustache的模板语法</p>
+<pre><code class="html">&lt; 如下：
+{{keyName}}
+{{#keyName}} {{/keyName}}
+{{^keyName}} {{/keyName}}
+{{.}}
+{{&lt;partials}}
+{{{keyName}}}
+{{!comments}}
+</code></pre>
+  </li>
+  <li>
+    <p>以javascript的Demo为例进行介绍</p>
+<pre><code class="javascript">...
+&lt;script type="text/javascript" src="mustache.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+var data = {
+  "company": "Apple",
+  "address": {
+    "street": "1 Infinite Loop Cupertino&lt;/br&gt;",
+    "city": "California ",
+    "state": "CA ",
+    "zip": "95014 "
+  },
+  "product": ["Macbook ","iPhone ","iPod ","iPad "]
+}
+var tpl = '&lt;h1&gt;Hello {{company}}&lt;/h1&gt;';
+var html = Mustache.render(tpl, data);
+console.log( html )
+&lt;/script&gt;
+...
+// 运行后 Console 输出：
+&lt;h1&gt;Hello Apple&lt;/h1&gt;
+</code></pre>
+    <p>在Demo中可以看到data是数据，tpl是定义的模板，Mustache.render(tpl, data)方法是用于渲染输出最终的HTML代码。</p>
+  </li>
+  <li>
+    <p>以Demo为例解析Mustache语法</p>
+    <ul>
+      <li>
+        <p>{{keyName}}</p>
+        <p>{{}}就是 Mustache 的标示符，花括号里的 keyName 表示键名，这句的作用是直接输出与键名匹配的键值，例如：</p>
+<pre><code class="javascript">var tpl = '{{company}}';
+var html = Mustache.render(tpl, data);
+// 输出：
+Apple
+</code></pre>
+      </li>
+      <li>
+        <p>{{#keyName}} {{/keyName}}</p>
+        <p>以#开始、以/结束表示区块，它会根据当前上下文中的键值来对区块进行一次或多次渲染，例如改写下 Demo 中的 tpl：</p>
+<pre><code class="javascript">var tpl = '{{#address}} &lt;p&gt;{{street}},{{city}},{{state}}&lt;/p&gt;{{/address}}';
+var html = Mustache.render(tpl, data);
+//输出：
+&lt;p&gt;1 Infinite Loop Cupertino&lt;/br&gt;,California,CA&lt;/p&gt;
+</code></pre>
+        <p>注意：如果{{#keyName}} {{/keyName}}中的 keyName 值为 null, undefined, false；则不渲染输出任何内容。</p>
+      </li>
+      <li>
+        <p>{{^keyName}} {{/keyName}}</p>
+        <p>该语法与{{#keyName}} {{/keyName}}类似，不同在于它是当 keyName 值为 null, undefined, false 时才渲染输出该区块内容。</p>
+<pre><code class="javascript">var tpl =
+  {{^nothing}}没找到 nothing 键名就会渲染这段{{/nothing}};
+var html = Mustache.render(tpl, data);
+//输出：
+没找到 nothing 键名就会渲染这段
+</code></pre>
+      </li>
+      <li>
+        <p>{{.}}</p>
+        <p>{{.}}表示枚举，可以循环输出整个数组，例如：</p>
+<pre><code class="javascript">var tpl = '{{#product}} &lt;p&gt;{{.}}&lt;/p&gt; {{/product}}';
+var html = Mustache.render(tpl, data);
+//输出：
+&lt;p&gt;Macbook &lt;/p&gt; &lt;p&gt;iPhone &lt;/p&gt;&lt;p>iPod &lt;/p&gt; &lt;p&gt;iPad &lt;/p&gt;
+</code></pre>
+      </li>
+      <li>
+        <p>{{>partials}}</p>
+        <p>以>开始表示子模块，如{{> address}}；当结构比较复杂时，我们可以使用该语法将复杂的结构拆分成几个小的子模块，例如：</p>
+<pre><code class="javascript">var tpl = "&lt;h1>{{company}}&lt;/h1&gt; &lt;ul&gt;{{&gt;address}}&lt;/ul&gt;"
+var partials = {address: "{{#address}}&lt;li&gt;{{street}}&lt;/li&gt;&lt;li&gt;{{city}}&lt;/li&gt;&lt;li&gt;{{state}}&lt;/li&gt;&lt;li&gt;{{zip}}&lt;/li&gt;{{/address}}"}
+var html = Mustache.render(tpl, data, partials);
+//输出：
+&lt;h1&gt;Apple&lt;/h1&gt;
+&lt;ul&gt;&lt;li&gt;1 Infinite Loop Cupertino&lt;/br&gt;&lt;/li&gt;&lt;li&gt;California&lt;/li&gt;&lt;li&gt;CA&lt;/li&gt;&lt;li&gt;95014&lt;/li&gt;&lt;/ul&gt;
+</code></pre>
+      </li>
+      <li>
+        <p>{{{keyName}}}</p>
+        <p>{{keyName}}输出会将等特殊字符转译，如果想保持内容原样输出可以使用{{{}}}，例如：</p>
+<pre><code class="javascript">var tpl = '{{#address}} &lt;p&gt;{{{street}}}&lt;/p&gt; {{/address}}'
+//输出：
+&lt;p&gt;1 Infinite Loop Cupertino&lt;/br&gt;&lt;/p&gt;
+</code></pre>
+      </li>
+      <li>
+        <p>{{!comments}}</p>
+        <p>!表示注释，注释后不会渲染输出任何内容。</p>
+<pre><code class="javascript">{{!这里是注释}}
+//输出：
+</code></pre>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+
+
+</body>
+</html>

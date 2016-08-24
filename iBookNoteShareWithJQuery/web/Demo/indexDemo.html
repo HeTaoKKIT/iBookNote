@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Editor for indexDemo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta charset="utf-8" />
+
+  <link rel="stylesheet" href="../../lib/css/content.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="../../lib/js/jquery.js" > </script>
+  <script type="text/javascript" src="../../lib/js/content.js" charset="utf-8"> </script>
+  <script type="text/javascript" src="../../lib/highlight/highlight.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    $("#editControls input").click(function(e) {
+    switch($(this).data("role")) {
+      case "p":
+      case "li":
+      case "ul":
+      case "div":
+      document.execCommand("formatBlock", false, "<" + $(this).data("role") + ">");
+      break;
+      default:
+      document.execCommand($(this).data("role"), false, null);
+      break;
+    }
+    })
+  })
+  </script>
+  <style>
+  .content {
+    margin: 8px;
+  }
+
+  #editor {
+    resize:vertical;
+    overflow:auto;
+    border:1px solid silver;
+    border-radius:5px;
+    min-height:100px;
+    box-shadow: inset 0 0 10px silver;
+    padding:1em;
+    background-color:beige;
+  }
+  </style>
+</head>
+
+<body>
+<div class="navigationBar">
+  <a href="../../index.html">iBookNote </a>|<a href="./indexDemo.html"> Demo</a>
+</div>
+<ul><div class="headers">页面标题</div>
+  <li>
+    <a href="./source/demoExample/demoExample.html">下级页面链接</a>
+  </li>
+</ul>
+<div class="content">
+  <div id="editControls">
+  <div>
+    <input type="button" value="p" data-role='p' href="#" />
+    <input type="button" value="li" data-role="li" href="#" />
+    <input type="button" value="ul" data-role="ul" href="#" />
+    <input type="button" value="div" data-role="div" href="#" />
+    <input type="checkbox" onchange="setEditorAreaMode(this.checked,'editor');"><label>Show HTML, indexDemo.html</label></input>
+  </div>
+  </div>
+  <div id="editor" contenteditable="plaintext-only">
+
+  <ul class=""><div class="headers">页面标题</div>
+    <li>
+      <a href="./source/demoExample/demoExample.html">下级页面链接</a>
+    </li>
+    <li>
+      <p>the first paragraph</p>
+      <p>the second paragraph</p>
+      <p>the third paragraph</p>
+<pre><code class="javascript">// for marked
+// 在Sublime中插入换行符来解决HTML标签相互连着，解决方案如下：
+// From
+&lt;/p&gt;&lt;p&gt;
+// To
+&lt;/p&gt;\n&lt;p&gt;
+</code></pre>
+    </li>
+  </ul>
+
+  </div>
+</div>
+
+</body>
+<script type="text/javascript">
+  function setEditorAreaMode(ToBeSource, editorId) {
+    var editorArea,
+        editorAreaContent,
+        editorInnerHTML = "";
+    editorArea = document.getElementById(editorId);
+    editorInnerHTML = editorArea.innerHTML
+                      .toString().replace(/<br>/g, "")
+                      .replace(/<p><\/p>/g, "")
+                      .replace(/<li><\/li>/g, "")
+                      .replace(/<div><\/div>/g, "")
+                      .replace(/<\/p><p>/g, "<\/p>\n<p>")
+                      .replace(/<\/li><li>/g, "<\/li>\n<li>")
+                      .replace(/<\/div><div>/g, "<\/div>\n<div>");
+    if (ToBeSource) {
+      editorAreaContent = document.createTextNode(editorInnerHTML);
+      editorArea.innerHTML = "";
+      var PreElement = document.createElement("pre");
+      editorArea.contentEditable = false;
+      PreElement.contentEditable = true;
+      PreElement.appendChild(editorAreaContent);
+      editorArea.appendChild(PreElement);
+    } else {
+      if (document.all) {
+        editorArea.innerHTML = editorArea.innerText;
+      } else {
+        editorAreaContent = document.createRange();
+        editorAreaContent.selectNodeContents(editorArea.firstChild);
+        editorArea.innerHTML = editorAreaContent.toString();
+      }
+      editorArea.contentEditable = true;
+    }
+    editorArea.focus();
+  }
+  </script>
+</html>

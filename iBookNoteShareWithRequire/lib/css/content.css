@@ -1,0 +1,454 @@
+body {
+  margin: 8px;
+  background-color: #85C80F;
+  text-decoration: none !important;
+  padding-top: 10px;
+  letter-spacing: -0.01em;
+  word-spacing: 0.2em;
+  line-height: 1.8em;
+}
+
+ul {
+  -webkit-padding-end: 48px;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+code { /* 使源代码自动换行 */
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.navigationBar {
+  top: 0px;
+  padding-top: 3px;
+  position: fixed;
+  z-index: 999;
+  background-color: #85C80F;
+  width: 100%;
+  height: 32px;
+  font-size: 22px;
+}
+
+.navigationBar > a:first-child {
+  margin-left: 48px;
+}
+
+#styleId {
+  margin-right: 56px;
+}
+
+.navigationBarShowHide {
+  top: 3px;
+  position: fixed;
+  z-index: 999;
+  right: 48px;
+  background-color: #C1E478;
+  height: 30px;
+  font-size: 20px;
+  display: none;
+  width: 56px;
+  border-radius: 10px;
+  text-align: center;
+  opacity:0.7;
+}
+
+.headers {
+  font-size: 22px;
+}
+
+.nativePositionTopRight {
+  position:fixed;
+  z-index: 666;
+  top: 36px;
+  right: 48px;
+  background: #C1E478;
+  border-radius: 10px;
+  list-style-type: none;
+}
+
+.nativePositionTopRight ul{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-left: 10px;
+  -webkit-padding-end: 0px;
+}
+
+.nativePositionTopRight ul li{
+  list-style: none;
+  margin-right: 8px;
+}
+
+.nativeMenu {
+  border-radius: 5px;
+  width: 40px;
+  text-align: center;
+}
+
+.bottom {
+  position:fixed;
+  z-index: 999;
+  bottom: 32px;
+  left: 48px;
+  padding-left: 8px;
+  background-color: #85C80F;
+}
+
+.ul {
+  /* 分层漂浮 start */
+  position: fixed;
+  z-index: 888;
+  top: 58px;
+  /* 分层漂浮 end */
+  margin-top: 3px;
+  margin-bottom: 0px;
+  margin-left: 24px;
+  /* 页面使用position后无法上下滚动，并显示li的样式 start */
+  overflow: auto; /* 修复可滚动页面下端部分因scroll而显示的显示边框 */
+  bottom: 32px;
+  width: 100%; /* 照成背景动画无法交互 */
+}
+
+.ulSecondPage {
+  /* 分层漂浮 start */
+  position: fixed;
+  z-index: 888;
+  top: 32px;
+  /* 分层漂浮 end */
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 24px;
+  /* 页面使用position后无法上下滚动，页面右侧显示不全 start */
+  overflow: auto;
+  bottom: 32px;
+  width: 100%;
+  /* 页面使用position后无法上下滚动，页面右侧显示不全 end */
+}
+
+.button {
+  font-size: 12px;
+}
+
+/* 需要隐藏的元素 */
+.hidden {
+  display: none;
+}
+
+/* 初始化需要隐藏的元素 */
+.hiddenForInit {
+  display: none;
+}
+
+.wordWrap {
+  word-wrap: break-word;
+}
+
+.pdf {
+  border: 1px solid black;
+}
+
+.important {
+  padding: 1px 5px;
+  margin-left: 3px;
+  margin-right: 3px;
+  background-color: #f8f8f8;
+  color: #d44950;
+  border: 1px solid #ddd;
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace, serif !important;
+  font-size: .95em;
+  line-height: 1.5em;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -khtml-border-radius: 4px;
+  border-radius: 4px
+}
+
+.inOneLine {
+  display: inline-block;
+}
+
+.inOneLineWithWidth {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin: 3px;
+}
+
+.smallFont {
+  font-size: 8px;
+}
+
+.redColor {
+  color: red;
+}
+
+.widthDefine {
+  width: 200px;
+}
+
+.scroll {
+  margin-left: 8px;
+  line-height: 32px;
+  height: 32px;
+  overflow: hidden;
+  top: 32px;
+  position: fixed;
+  z-index: 999;
+}
+
+.scroll > ul {
+  text-align: left;
+  list-style: none;
+  -webkit-animation: 10s linear 0s normal none infinite change;
+  -moz-animation: 10s linear 0s normal none infinite change;
+  -o-animation: 10s linear 0s normal none infinite change;
+  animation: 10s linear 0s normal none infinite change;
+}
+
+@-webkit-keyframes change {
+  0%{
+    margin-top: 0;
+  }
+  15%{
+    margin-top: 0;
+  }
+  25%{
+    margin-top: -35px;
+  }
+  40%{
+    margin-top: -35px;
+  }
+  50%{
+    margin-top: -65px;
+  }
+  60%{
+    margin-top: -65px;
+  }
+  /* 注释掉一下代码，可以使文字从最后一行连续的慢慢滑动到最上面一行 start */
+  75%{
+    margin-top: -35px;
+  }
+  85%{
+    margin-top: -35px;
+  }
+  100%{
+    margin-top: 0;
+  }
+  /* 注释掉一下代码，可以使文字从最后一行连续的慢慢滑动到最上面一行 end */
+}
+
+.brackets::before {
+  content: "["; /* 定义内容 */
+}
+
+.brackets::after {
+  content: "]";
+}
+
+.brackets::before, .brackets::after {
+  line-height: 20px;
+  color: #ffffff;
+  font-size: 20px;
+  -webkit-animation: 2s linear 0s normal none infinite opacity;
+  -moz-animation: 2s linear 0s normal none infinite opacity;
+  -o-animation: 2s linear 0s normal none infinite opacity;
+  animation: 2s linear 0s normal none infinite opacity;
+}
+
+@-webkit-keyframes opacity {
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+.notEditable {
+}
+
+.content {
+  margin: 8px;
+}
+
+#editor {
+  resize:vertical;
+  overflow:auto;
+  border:1px solid silver;
+  border-radius:5px;
+  min-height:100px;
+  box-shadow: inset 0 0 10px silver;
+  padding:1em;
+  background-color:beige;
+}
+
+#particles-js {
+  z-index: -999;
+}
+
+/* 用于适配移动设备屏幕尺寸 start */
+@media screen and (max-width:960px){
+  .head {
+    display: -webkit-box;
+  }
+
+  .navigationBar > a:first-child {
+    margin-left: 0px;
+  }
+
+  #styleId {
+    margin-right: 0px;
+  }
+
+  .navigationBarShowHide {
+    right: 0px;
+  }
+
+  .nativePositionTopRight {
+    right: 0px;
+  }
+
+  .nativePositionTopRight ul {
+    -webkit-padding-start: 40px;
+  }
+
+  ul {
+    -webkit-padding-end: 10px;
+    margin-left: -32px !important;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .bottom {
+    left: 0px;
+    margin-left: 0px;
+  }
+
+  .scroll {
+    margin-left: -8px;
+  }
+
+  .ulSecondPage {
+    padding-left: 16px;
+    padding-right: 0px;
+    margin-left: -8px !important;
+  }
+}
+
+@media screen and (max-width:480px){
+  .head {
+    display: -webkit-box;
+  }
+
+  .navigationBar > a:first-child {
+    margin-left: 0px;
+  }
+
+  #styleId {
+    margin-right: 0px;
+  }
+
+  .navigationBarShowHide {
+    right: 0px;
+  }
+
+  .nativePositionTopRight {
+    right: 0px;
+  }
+
+  .nativePositionTopRight ul {
+    -webkit-padding-start: 40px;
+  }
+
+  ul {
+    -webkit-padding-end: 10px;
+    margin-left: -32px !important;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .bottom {
+    left: 0px;
+    margin-left: 0px;
+  }
+
+  .scroll {
+    margin-left: -8px;
+  }
+
+  .ulSecondPage {
+    padding-left: 16px;
+    padding-right: 0px;
+    margin-left: -8px !important;
+  }
+}
+
+@media only screen and (max-width:320px) {
+  .head {
+    display: -webkit-box;
+  }
+
+  .navigationBar > a:first-child {
+    margin-left: 0px;
+  }
+
+  #styleId {
+    margin-right: 0px;
+  }
+
+  .navigationBarShowHide {
+    right: 0px;
+  }
+
+  .nativePositionTopRight {
+    right: 0px;
+  }
+
+  .nativePositionTopRight ul {
+    -webkit-padding-start: 40px;
+  }
+
+  ul {
+    -webkit-padding-end: 10px;
+    margin-left: -32px !important;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .bottom {
+    left: 0px;
+    margin-left: 0px;
+  }
+
+  .scroll {
+    margin-left: -8px;
+  }
+
+  .ulSecondPage {
+    padding-left: 16px;
+    padding-right: 0px;
+    margin-left: -8px !important;
+  }
+}
+/* 用于适配移动设备屏幕尺寸 end */

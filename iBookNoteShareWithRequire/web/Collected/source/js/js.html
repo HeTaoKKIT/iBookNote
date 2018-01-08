@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>js</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../../../../lib/css/content.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="../../../../lib/js/jquery.js" ></script>
+  <script type="text/javascript" src="../../../../lib/js/require.js" async="true" data-main="../../../../lib/js/main"></script>
+  <script type="text/javascript">
+  </script>
+</head>
+
+<body>
+<div class="navigationBar">
+  <a href="../../../../index.html">iBookNote </a>|<a href="./../../indexCollected.html"> Collected</a>
+</div>
+
+<ul><div class="headers">js</div>
+  <li>
+    <p>JS添加事件和解绑事件：addEventListener()与removeEventListener()</p>
+    <p>addEventListener()与removeEventListener()用于处理指定和删除事件处理程序操作。</p>
+    <p>它们都接受3个参数：事件名、事件处理的函数和布尔值。</p>
+    <p>布尔值参数是true，表示在捕获阶段调用事件处理程序；如果是false，表示在冒泡阶段调用事件处理程序。</p>
+    <p><span class='important'>*EventListener方法只能做相同事件的绑定和解除，不能使用匿名函数(通过addEventListener()添加的匿名函数无法移除)；函数不能带参数。</span></p>
+    <p>移动端界面禁止触摸事件，要在body上添加事件处理程序，可以使用下列代码：
+<pre class="hiddenForInit"><code class="javascript">document.body.addEventListener('touchmove', function (event) {
+  event.preventDefault();
+},false);
+// 错误用法示例：
+document.body.addEventListener('touchmove', function (event) {
+  event.preventDefault();
+},false);
+document.body.removeEventListener('touchmove', function (event) {
+  event.preventDefault();
+},false);
+// 正确用法示例：
+function bodyScroll(event){
+  event.preventDefault();
+}
+document.body.addEventListener('touchmove',bodyScroll,false);
+document.body.removeEventListener('touchmove',bodyScroll,false);
+// 重写后的这个例子没有问题，是因为在addEventListener()和removeEventListener()中用来相同的函数。
+// 共用函数不能带参数，错误用法示例：
+function bodyScroll(event){
+  event.preventDefault();
+}
+document.body.addEventListener('touchmove',bodyScroll(event),false);
+document.body.removeEventListener('touchmove',bodyScroll(event),false);
+</code></pre>
+    <p>大多数情况下，都是将事件处理程序添加到事件流的冒泡阶段，这样可以最大限度地兼容各种浏览器，最好将事件处理程序添加到捕获阶段。如果不是特别需要，不建议在事件捕获阶段注册事件处理方法。</p>
+  </li>
+  <li>
+    <p></p>
+<pre class="hiddenForInit"><code class="javascript">
+</code></pre>
+  </li>
+</ul>
+
+
+
+</body>
+</html>

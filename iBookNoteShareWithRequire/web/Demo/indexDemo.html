@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Editor for indexDemo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../../lib/css/content.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="../../lib/js/jquery.js" ></script>
+  <script type="text/javascript" src="../../lib/js/require.js" async="true" data-main="../../lib/js/main"></script>
+  <script type="text/javascript">
+  </script>
+</head>
+
+<body>
+<div class="navigationBar">
+  <a href="../../index.html">iBookNote </a>|<a href="./indexDemo.html"> Demo</a>
+</div>
+<ul><div class="headers">页面标题</div>
+  <li>
+    <a href="./source/demoExample/demoExample.html">下级页面链接</a>
+  </li>
+</ul>
+<div class="content">
+  <div id="editControls">
+    <div>
+      <input type="button" value="p" data-role='p' href="#" />
+      <input type="button" value="li" data-role="li" href="#" />
+      <input type="button" value="ul" data-role="ul" href="#" />
+      <input type="button" value="div" data-role="div" href="#" />
+      <input type="checkbox" id="showHTMLorPageId"><label>Show HTML, indexDemo.html</label></input>
+    </div>
+  </div>
+  <div id="editor" contenteditable="plaintext-only">
+
+  <ul class=""><div class="headers">页面标题</div>
+    <li>
+      <a href="./source/demoExample/demoExample.html">下级页面链接</a>
+    </li>
+    <li>
+      <p>the first paragraph</p>
+      <p>the second paragraph</p>
+      <p>the third paragraph</p>
+<pre><code class="javascript">// for marked
+// 在Sublime中插入换行符来解决HTML标签相互连着，解决方案如下：
+// From
+&lt;/p&gt;&lt;p&gt;
+// To
+&lt;/p&gt;\n&lt;p&gt;
+</code></pre>
+    </li>
+  </ul>
+
+  </div>
+</div>
+
+</body>
+</html>

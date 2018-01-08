@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AngularJS vs jQeury With jqLite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../../../../lib/css/content.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="../../../../lib/js/jquery.js" ></script>
+  <script type="text/javascript" src="../../../../lib/js/require.js" async="true" data-main="../../../../lib/js/main"></script>
+  <script type="text/javascript">
+  </script>
+</head>
+
+<body>
+<div class="navigationBar">
+  <a href="../../../../index.html">iBookNote </a>|<a href="./../../indexCollected.html"> Collected</a>
+</div>
+
+<ul><div class="headers">AngularJS vs jQeury With jqLite AngularJS用jqLite向jQeury致敬</div>
+  <li>
+    <p>在DOM操作方面，没有人比jQuery做的更好</p>
+    <p>AngularJS以一种特殊的方式 向jQuery表达了敬意：内置精简版的jQuery - jqLite，和jQuery一样，jqLite兼容多个浏览器。</p>
+    <p><span class="important">jqLite以angular.element接口提供出来，兼容jQuery API的一个子集。在AngularJS的所有API中的element对象，都不是纯粹的DOM对象，而是经过jqLite 封装过的。</span></p>
+  </li>
+  <li>
+    <p>angular选择符的问题</p>
+    <p>从开发者的角度，<span class="important">jqLite最明显的精简是不支持选择符，你只能向angular.element传入一个DOM对象。</span>看起来AngularJS将这部分功能让位给浏览器原生的支持了，我们可以先使用浏览器的querySelector获得一个DOM对象：</p>
+<pre class="hiddenForInit"><code class="javascript">var tempObject = document.querySelector('#IdName');
+angular.element(tempObject).text("Hello?");
+</code></pre>
+  </li>
+  <li>
+    <p>angular与jQuery库的兼容性</p>
+    <p>如果某种原因你不愿意使用jqLite，也可以在AngularJS之前引入jQuery库。AngularJS自动地将jqLite升级成jQuery，angular.element等同于 $，这样又可以使用熟悉的选择符了。</p>
+  </li>
+  <li>
+    <p>angular独有的扩展方法</p>
+    <p>jqLite包括一些额外的方法以适应AngularJS框架：</p>
+    <ul>
+      <li>controller(name) - 获得元素对应的控制器对象。</li>
+      <li>injector() - 获得元素对应的注入器对象。</li>
+      <li>scope() - 获得元素对应的作用域对象。</li>
+      <li>isolateScope() - 获得元素对应的隔离作用域对象，如果有的话。</li>
+      <li>inheritedData() - 和data()一样，但如果当前元素没有指定的数据，会向上级节点继续找。</li>
+    </ul>
+  </li>
+  <li>
+    <p>angular独有的扩展事件</p>
+    <p>jqLite还提供一个$destroy事件，当DOM对象被从DOM树删除时，AngularJS将触发 这个事件，以便指令进行一些善后清理工作。</p>
+  </li>
+  <li>
+    <p>用 jQuery 和 angularJS 分别实现一个钟表功能</p>
+    <p>jQuery是一个库，库总是被动的，就像工具，应用的开发逻辑是你的，在某一点上需要用一下工具，就用好了。<span class="important">抹平浏览器差异的jQuery库，让静态的文档动起来，通过提供一系列的选择符，jQuery使开发者能够极其方便地选中一组DOM节点，对其进行操作。</span></p>
+    <button class="button">查看或隐藏关键源代码</button>
+    <div class="hidden">
+<pre class="hiddenForInit"><code class="html">&lt;div id="jQueryClock"&lt;/div&gt;
+</code></pre>
+<pre><code class="javascript">// 监听DOM就绪事件
+$(function(){
+  // 启动定时器
+  setInterval(function(){
+  // 取当前时间
+  var d = new Date();
+  // 使用text()方法更新DOM对象的文本内容
+  $("#jQueryClock").text(d.toString());
+  },1000/* 1000毫秒触发1次 */);
+});
+</code></pre>
+
+    </div>
+    <!-- 页面导入 jQuery.js 库，div#clock作为我们的时钟模板，将被定时刷新 -->
+    <div id="jQueryClock"></div>
+
+    <hr>
+
+    <p>AngularJS框架为应用已经搭起了一个架子，约定了一些组成部分，并且实现了这些部分的拼装运行。换句话说，应用的开发逻辑是AngularJS的，你得跟着它走。所以AngularJS难学一些，因为它有一个架子在那，你不了解这个架子，基本没法下手。Misko Hevery为AngularJS引入了三个主要的概念，期望让前端开发更系统化一些，与java相似的开发特性：</p>
+    <p>声明式界面开发，双向数据绑定，使用依赖注入解耦。</p>
+
+    <button class="button">查看或隐藏关键源代码</button>
+  <div class="hidden">
+<pre class="hiddenForInit"><code class="html">&lt;div id="AngularJSClock"&lt;/div&gt;
+</code></pre>
+<pre><code class="javascript">// 监听DOM就绪事件
+angular.element(document).ready(function(){
+  // 启动定时器
+  setInterval(function(){
+  // 取当前时间
+  var d = new Date();
+  // 使用text()方法更新DOM对象的文本内容
+  var tpl = document.querySelector("#AngularJSClock");
+  angular.element(tpl).text(d.toString());
+  },1000/* 1000毫秒触发1次 */);
+});
+</code></pre>
+
+  </div>
+
+  <!-- div#AngularJSclock作为我们的时钟模板，将被定时刷新 -->
+  <div id="AngularJSClock"></div>
+
+  <hr>
+
+  <button class="button">查看或隐藏关键源代码</button>
+  <div class="hidden">
+<pre class="hiddenForInit"><code class="html">&lt;!-- angularJS 使用指令 和 ng 内置过滤器date(日期格式化) --&gt;
+&lt;div ng-app="app"&gt;
+  &lt;div ng-controller="ClickController"&gt;
+      &lt;!-- 在视图中将clock变量用{{ }}包起来,以显示$scope中的clock的值 --&gt;
+      &lt;div&gt;{ {clock | date : 'EEE MMM dd yyyy HH:mm:ss'} }&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<pre class="hiddenForInit"><code class="javascript">// 推荐使用的angularJS实现方式
+function ClickFunction($scope) {
+  $scope.clock = new Date();
+  var updateClock = function() {
+    $scope.clock = new Date();
+  };
+  setInterval(function() {
+    $scope.$apply(updateClock);
+  }, 1000); // 当定时器触发时会调用updateClock()函数,将$scope.clock的值设置为当前时间
+};
+angular
+  .module('app', [])
+  .controller('ClickController', ClickFunction);
+</code></pre>
+  </div>
+  <!-- angularJS 使用指令 和 ng 内置过滤器date(日期格式化) -->
+  <div ng-app="app">
+    <div ng-controller="ClickController">
+        <!-- 在视图中将clock变量用{{ }}包起来,以显示$scope中的clock的值 -->
+        <div>{{clock | date : 'EEE MMM dd yyyy HH:mm:ss'}}</div>
+    </div>
+  </div>
+
+  <hr>
+
+</ul>
+<pre class="hiddenForInit"><code class="javascript">
+</code></pre>
+
+</body>
+</html>
